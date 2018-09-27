@@ -20,8 +20,9 @@ public class SearchTreeNode {
 		this.depth = 0;
 	}
 	
-	public ArrayList<SearchTreeNode> expand(Operator[] operators) {
+	public ArrayList<SearchTreeNode> expand(SearchProblem searchProblem) {
 		
+		Operator[] operators = searchProblem.operators;
 		ArrayList<SearchTreeNode> nodes = new ArrayList<SearchTreeNode>();
 		
 		for (Operator operator : operators) {
