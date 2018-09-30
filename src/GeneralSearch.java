@@ -12,7 +12,7 @@ public class GeneralSearch {
 			if (nodes.isEmpty())
 				return null;
 			SearchTreeNode currentNode = nodes.remove(0);
-			if (grid.goalTest())
+			if (grid.goalTest(currentNode))
 				return currentNode;
 			ArrayList<SearchTreeNode> children = currentNode.expand(grid);
 			nodes = Q-ING(nodes, children, strategy);

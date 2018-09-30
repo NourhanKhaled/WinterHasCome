@@ -1,12 +1,12 @@
 
 public abstract class SearchProblem {
 	Operator [] operators;
-	State currentState;
+	State initState;
 
-	public abstract boolean goalTest();
+	public abstract boolean goalTest(SearchTreeNode currentNode);
 	// public abstract int pathCost()
 	
 	
-	public abstract Operator[] getPossibleOperators();
+	public abstract Operator[] getPossibleOperators(State currentState);
 	
 }

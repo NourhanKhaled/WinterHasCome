@@ -25,8 +25,9 @@ public class SearchTreeNode {
 		Operator[] operators = searchProblem.operators;
 		ArrayList<SearchTreeNode> nodes = new ArrayList<SearchTreeNode>();
 		
+		// TODO: get possible operators
 		for (Operator operator : operators) {
-			State newState = operator.transitionFunction(this.state);
+			State newState = operator.transitionFunction(searchProblem); // passing seqarchProblem instead of the state bec it has all needed meta params
 			SearchTreeNode newSearchTreeNode = new SearchTreeNode(newState, this, operator);
 			nodes.add(newSearchTreeNode);
 		}
