@@ -39,7 +39,7 @@ public class SearchTreeNode implements Comparable{
 			System.out.println(Arrays.toString(this.state.grid[i]));
 		}
 		System.out.println("Depth: "+ this.depth);
-		System.out.println();
+		System.out.println("======================");
 	}
 
 	public int compareTo(Object obj) {

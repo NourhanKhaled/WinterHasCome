@@ -105,7 +105,7 @@ public class WesterosOperator extends Operator {
 			newGrid[jon.x][jon.y] = ' ';
 			newGrid[newJon.x][newJon.y] = j;
 			if(parent.dragonStone.x == newJon.x && parent.dragonStone.y == newJon.y)
-				newGrid[parent.dragonStone.x][parent.dragonStone.y] = 'C'; //Jon is charging
+				newGrid[parent.dragonStone.x][parent.dragonStone.y] = 'C'; //Jon is in charging position
 			else
 				newGrid[parent.dragonStone.x][parent.dragonStone.y] = 'd';
 		}

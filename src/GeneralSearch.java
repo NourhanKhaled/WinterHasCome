@@ -18,6 +18,10 @@ public class GeneralSearch {
 			
 			// dequeue
 			SearchTreeNode currentNode = nodes.remove(0);
+			if(currentNode.operator != null)
+				if(currentNode.operator.action == 'c')
+					System.out.println("Coming from charging");
+			
 			if(visualize)
 				currentNode.visualize();
 			
@@ -40,7 +44,7 @@ public class GeneralSearch {
 		
 		switch(strategy) {
 		case "BF": return BF(nodes, children); 
-//		case "DF": return DF(nodes, children);
+		case "DF": return DF(nodes, children);
 		case "UC": return UC(nodes, children);
 //		case "ID": return ID(nodes, children);
 		default: return null;
@@ -64,11 +68,16 @@ public class GeneralSearch {
 		return nodes;
 	}
 	
+	public static ArrayList<SearchTreeNode> DF(ArrayList<SearchTreeNode> nodes, ArrayList<SearchTreeNode> children){
+		children.addAll(nodes);
+		return children;
+	}
+	
 	public static void main(String[] args) {
 		SaveWesteros sw = new SaveWesteros();
 		char[][] grid = sw.initState.grid;
 		
-		SearchTreeNode result = Search(sw, "UC", true);
+		SearchTreeNode result = Search(sw, "DF", true);
 		
 		for (int i = 0; i < grid.length; i++) {
 			System.out.println(Arrays.toString(grid[i]));
