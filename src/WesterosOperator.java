@@ -21,7 +21,7 @@ public class WesterosOperator extends Operator {
 		boolean jonDead = false;
 
 		// Jon coordinates
-		Position jon = new Position(-1, -1);
+		Position jon = new Position(parent.jon.x, parent.jon.y);
 
 		// Cloning grid and locating Jon
 		for (int i = 0; i < size; i++) {
@@ -93,10 +93,6 @@ public class WesterosOperator extends Operator {
 
 		if (newJon.x != jon.x || newJon.y != jon.y) {
 			stateChanged = true;
-			if(parent.dragonStone.x == newJon.x && parent.dragonStone.y == newJon.y)
-				newGrid[parent.dragonStone.x][parent.dragonStone.y] = 'C'; //Jon is charging
-			else
-				newGrid[parent.dragonStone.x][parent.dragonStone.y] = 'd';
 		}
 		if (newGrid[newJon.x][newJon.y] == 'w') {
 			isFailureState = true;
@@ -108,6 +104,10 @@ public class WesterosOperator extends Operator {
 			char j = isFailureState ? 'X' : 'J';
 			newGrid[jon.x][jon.y] = ' ';
 			newGrid[newJon.x][newJon.y] = j;
+			if(parent.dragonStone.x == newJon.x && parent.dragonStone.y == newJon.y)
+				newGrid[parent.dragonStone.x][parent.dragonStone.y] = 'C'; //Jon is charging
+			else
+				newGrid[parent.dragonStone.x][parent.dragonStone.y] = 'd';
 		}
 
 		State newState = new WesterosState(newGrid, isFailureState, whiteWalkersNumber, parent.maxDragonGlass, currentDragonGlass,

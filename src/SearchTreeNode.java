@@ -1,12 +1,13 @@
 import java.util.ArrayList;
+import java.util.Arrays;
 
-public class SearchTreeNode {
+public class SearchTreeNode implements Comparable{
 	State state;
-	SearchTreeNode parent;	
+	SearchTreeNode parent;
 	Operator operator; // Operator that causes it from the parent
 	int depth;
 	int pathCost;
-	
+
 	public SearchTreeNode(State state, SearchTreeNode parent, Operator operator) {
 		this.state = state;
 		this.parent = parent;
@@ -14,24 +15,35 @@ public class SearchTreeNode {
 		this.depth = parent.depth + 1;
 		this.pathCost = parent.pathCost + operator.cost;
 	}
-	
+
 	public SearchTreeNode(State state) {
 		this.state = state;
 		this.depth = 0;
 	}
-	
-	public ArrayList<SearchTreeNode> expand(SearchProblem searchProblem) {
-		
-		Operator[] operators = searchProblem.operators;
+
+	public ArrayList<SearchTreeNode> expand(Operator[] operators) {
+
 		ArrayList<SearchTreeNode> nodes = new ArrayList<SearchTreeNode>();
 		
-		// TODO: get possible operators
+		System.out.println("operators: " + operators.length);
 		for (Operator operator : operators) {
-			State newState = operator.transitionFunction(searchProblem); // passing seqarchProblem instead of the state bec it has all needed meta params
+			State newState = operator.transitionFunction(this.state);
 			SearchTreeNode newSearchTreeNode = new SearchTreeNode(newState, this, operator);
 			nodes.add(newSearchTreeNode);
 		}
 		return nodes;
 	}
-	
+
+	public void visualize() {
+		for (int i = 0; i < this.state.grid.length; i++) {
+			System.out.println(Arrays.toString(this.state.grid[i]));
+		}
+		System.out.println("Depth: "+ this.depth);
+		System.out.println();
+	}
+
+	public int compareTo(Object obj) {
+		return this.pathCost - ((SearchTreeNode) obj).pathCost;
+	}
+
 }
