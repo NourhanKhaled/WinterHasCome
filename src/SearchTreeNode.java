@@ -2,6 +2,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class SearchTreeNode implements Comparable{
+	static int id_counter = 0;
+	int id;
 	State state;
 	SearchTreeNode parent;
 	Operator operator; // Operator that causes it from the parent
@@ -14,11 +16,13 @@ public class SearchTreeNode implements Comparable{
 		this.operator = operator;
 		this.depth = parent.depth + 1;
 		this.pathCost = parent.pathCost + operator.cost;
+		this.id = id_counter++;
 	}
 
 	public SearchTreeNode(State state) {
 		this.state = state;
 		this.depth = 0;
+		this.id = id_counter++;
 	}
 
 	public ArrayList<SearchTreeNode> expand(Operator[] operators) {
@@ -44,6 +48,10 @@ public class SearchTreeNode implements Comparable{
 
 	public int compareTo(Object obj) {
 		return this.pathCost - ((SearchTreeNode) obj).pathCost;
+	}
+	
+	public String toString(){
+		return "("+ this.id + ", " + this.operator.action + ")";
 	}
 
 }

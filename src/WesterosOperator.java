@@ -28,8 +28,8 @@ public class WesterosOperator extends Operator {
 			for (int j = 0; j < size; j++) {
 				newGrid[i][j] = grid[i][j];
 				if (grid[i][j] == 'J') {
-					jon.x = i;
-					jon.y = j;
+					jon.x = j;
+					jon.y = i;
 				}
 			}
 		}
@@ -61,23 +61,23 @@ public class WesterosOperator extends Operator {
 			// TODO: keep ds when jon leaves
 			// locating stabbed walkers and obliterating them
 			boolean usedDragonGlass = false;
-			if (jon.x + 1 < size && grid[jon.x + 1][jon.y] == 'w') {
-				newGrid[jon.x + 1][jon.y] = ' ';
+			if (jon.x + 1 < size && grid[jon.y][jon.x + 1] == 'w') {
+				newGrid[jon.y][jon.x + 1] = ' ';
 				usedDragonGlass = true;
 				whiteWalkersNumber--;
 			}
-			if (jon.x - 1 >= 0 && grid[jon.x - 1][jon.y] == 'w') {
-				newGrid[jon.x - 1][jon.y] = ' ';
+			if (jon.x - 1 >= 0 && grid[jon.y][jon.x - 1] == 'w') {
+				newGrid[jon.y][jon.x - 1] = ' ';
 				usedDragonGlass = true;
 				whiteWalkersNumber--;
 			}
-			if (jon.y + 1 < size && grid[jon.x][jon.y + 1] == 'w') {
-				newGrid[jon.x][jon.y + 1] = ' ';
+			if (jon.y + 1 < size && grid[jon.y + 1][jon.x] == 'w') {
+				newGrid[jon.y + 1][jon.x] = ' ';
 				usedDragonGlass = true;
 				whiteWalkersNumber--;
 			}
-			if (jon.y - 1 >= 0 && grid[jon.x][jon.y - 1] == 'w') {
-				newGrid[jon.x][jon.y - 1] = ' ';
+			if (jon.y - 1 >= 0 && grid[jon.y - 1][jon.x] == 'w') {
+				newGrid[jon.y - 1][jon.x] = ' ';
 				usedDragonGlass = true;
 				whiteWalkersNumber--;
 			}
@@ -94,7 +94,7 @@ public class WesterosOperator extends Operator {
 		if (newJon.x != jon.x || newJon.y != jon.y) {
 			stateChanged = true;
 		}
-		if (newGrid[newJon.x][newJon.y] == 'w') {
+		if (newGrid[newJon.y][newJon.x] == 'w') {
 			isFailureState = true;
 			jonDead = true;
 
@@ -102,12 +102,12 @@ public class WesterosOperator extends Operator {
 
 		if (stateChanged) {
 			char j = isFailureState ? 'X' : 'J';
-			newGrid[jon.x][jon.y] = ' ';
-			newGrid[newJon.x][newJon.y] = j;
+			newGrid[jon.y][jon.x] = ' ';
+			newGrid[newJon.y][newJon.x] = j;
 			if(parent.dragonStone.x == newJon.x && parent.dragonStone.y == newJon.y)
-				newGrid[parent.dragonStone.x][parent.dragonStone.y] = 'C'; //Jon is in charging position
+				newGrid[parent.dragonStone.y][parent.dragonStone.x] = 'C'; //Jon is in charging position
 			else
-				newGrid[parent.dragonStone.x][parent.dragonStone.y] = 'd';
+				newGrid[parent.dragonStone.y][parent.dragonStone.x] = 'd';
 		}
 
 		State newState = new WesterosState(newGrid, isFailureState, whiteWalkersNumber, parent.maxDragonGlass, currentDragonGlass,

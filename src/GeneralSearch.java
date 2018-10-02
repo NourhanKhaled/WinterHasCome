@@ -5,6 +5,8 @@ import java.util.Collections;
 public class GeneralSearch {
 	
 	public static SearchTreeNode Search(SearchProblem grid, String strategy, boolean visualize) {
+		
+
 		SearchTreeNode searchResult;		
 		SearchTreeNode initialTreeNode = new SearchTreeNode(grid.initState);		
 		ArrayList<SearchTreeNode> nodes = new ArrayList<SearchTreeNode>();
@@ -46,7 +48,7 @@ public class GeneralSearch {
 		case "BF": return BF(nodes, children); 
 		case "DF": return DF(nodes, children);
 		case "UC": return UC(nodes, children);
-//		case "ID": return ID(nodes, children);
+		case "ID": return ID(nodes, children);
 		default: return null;
 		}
 	}
@@ -70,9 +72,33 @@ public class GeneralSearch {
 	
 	public static ArrayList<SearchTreeNode> DF(ArrayList<SearchTreeNode> nodes, ArrayList<SearchTreeNode> children){
 		children.addAll(nodes);
+		System.out.println(children);
 		return children;
 	}
 	
+	public static ArrayList<SearchTreeNode> ID(ArrayList<SearchTreeNode> nodes, ArrayList<SearchTreeNode> children){
+		
+		int maxDepth = 0;
+		while(true){
+			DL()
+			maxDepth ++;
+		}
+	}
+	
+	public static ArrayList<SearchTreeNode> DL(ArrayList<SearchTreeNode> nodes, ArrayList<SearchTreeNode> children, int maxDepth){
+		
+		// if within depth, normal dfs
+		if(children.get(0).depth < maxDepth){
+			children.addAll(nodes);
+			return children;
+		}
+		else{
+			return nodes;
+		}
+			
+	}
+		
+
 	public static void main(String[] args) {
 		SaveWesteros sw = new SaveWesteros();
 		char[][] grid = sw.initState.grid;

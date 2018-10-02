@@ -36,16 +36,16 @@ public class SaveWesteros extends SearchProblem {
 		boolean jonDead = false; // initially false
 
 		jon = new Position(gridSize - 1, gridSize - 1);
-		grid[jon.x][jon.y] = 'J';
+		grid[jon.y][jon.x] = 'J';
 
 		// dragonstone and dragonglass initialization
 		maxDragonGlass = (int) (Math.random() * 10 + 11); // has maximum of between 10 and 20 pieces of dragonglass
 		while (true) {
 			int x = (int) (Math.random() * gridSize);
 			int y = (int) (Math.random() * gridSize);
-			if (grid[x][y] == ' ') {
+			if (grid[y][x] == ' ') {
 				dragonStone = new Position(x, y);
-				grid[x][y] = 'd';
+				grid[y][x] = 'd';
 				break;
 			}
 		}
@@ -57,9 +57,8 @@ public class SaveWesteros extends SearchProblem {
 			while (true) {
 				int x = (int) (Math.random() * gridSize);
 				int y = (int) (Math.random() * gridSize);
-				if (grid[x][y] == ' ') {
-					// whiteWalkersLoc[i] = new Position(x, y);
-					grid[x][y] = 'w';
+				if (grid[y][x] == ' ') {
+					grid[y][x] = 'w';
 					break;
 				}
 			}
@@ -73,9 +72,9 @@ public class SaveWesteros extends SearchProblem {
 			while (true) {
 				int x = (int) (Math.random() * gridSize);
 				int y = (int) (Math.random() * gridSize);
-				if (grid[x][y] == ' ') {
+				if (grid[y][x] == ' ') {
 					obstacles[i] = new Position(x, y);
-					grid[x][y] = 'o';
+					grid[y][x] = 'o';
 					break;
 				}
 			}
@@ -83,7 +82,6 @@ public class SaveWesteros extends SearchProblem {
 		this.initState = new WesterosState(grid, isFailureState, whiteWalkersNumber, maxDragonGlass, currentDragonGlass,
 				// whiteWalkersLoc,
 				obstacles, dragonStone, jon, jonDead);
-		
 		
 	}
 
@@ -103,55 +101,56 @@ public class SaveWesteros extends SearchProblem {
 		Position jon = currentState.jon;
 		char[][] grid = currentState.grid;
 		int gridSize = grid.length;
-
-		// boundary and obstacle checks
-		// add right
-		if (jon.x + 1 < gridSize && grid[jon.x + 1][jon.y] != 'o') {
-			possibleOperators.add(new WesterosOperator('r', 1));
-		}
-		// add left
-		if (jon.x - 1 >= 0 && grid[jon.x - 1][jon.y] != 'o') {
-			possibleOperators.add(new WesterosOperator('l', 1));
-		}
-		// add up
-		if (jon.y - 1 >= 0 && grid[jon.x][jon.y - 1] != 'o') {
-			possibleOperators.add(new WesterosOperator('u', 1));
-		}
-		// add down
-		if (jon.y + 1 < gridSize && grid[jon.x][jon.y + 1] != 'o') {
-			possibleOperators.add(new WesterosOperator('d', 1));
-		}
-
+		
 		// if Jon is standing on dragonstone, he can charge
-		if (grid[jon.x][jon.y] == 'C')
+		if (grid[jon.y][jon.x] == 'C' && currentState.currentDragonGlass < currentState.maxDragonGlass)
 			possibleOperators.add(new WesterosOperator('c', 2));
-
-		// For Jon to kill he must have dragonglass(es) and whitewalkers must be
-		// adjacent
+		
+		// For Jon to kill he must have dragonglass(es) and whitewalkers must be adjacent
 		boolean adjacentWhiteWalkers = false;
 		if (currentState.currentDragonGlass > 0) {
 
 			// check right
-			if (jon.x + 1 < gridSize - 1 && grid[jon.x + 1][jon.y] == 'w') {
+			if (jon.x + 1 < gridSize - 1 && grid[jon.y][jon.x + 1] == 'w') {
 				adjacentWhiteWalkers = true;
 			}
 			// check left
-			if (jon.x - 1 >= 0 && grid[jon.x - 1][jon.y] == 'w') {
-				adjacentWhiteWalkers = true;
-			}
-			// check up
-			if (jon.y + 1 < gridSize - 1 && grid[jon.x][jon.y + 1] == 'w') {
+			if (jon.x - 1 >= 0 && grid[jon.y][jon.x - 1] == 'w') {
 				adjacentWhiteWalkers = true;
 			}
 			// check down
-			if (jon.y - 1 >= 0 && grid[jon.x][jon.y - 1] == 'w') {
+			if (jon.y + 1 < gridSize - 1 && grid[jon.y + 1][jon.x] == 'w') {
 				adjacentWhiteWalkers = true;
 			}
-
+			// check up
+			if (jon.y - 1 >= 0 && grid[jon.y - 1][jon.x] == 'w') {
+				adjacentWhiteWalkers = true;
+			}
+			
 			if (adjacentWhiteWalkers)
 				possibleOperators.add(new WesterosOperator('k', 3)); // TODO: rethink kill cost
-
+		
 		}
+		
+		// boundary and obstacle checks
+		// add right
+		if (jon.x + 1 < gridSize && grid[jon.y][jon.x + 1] != 'o') {
+			possibleOperators.add(new WesterosOperator('r', 1));
+		}
+		// add left
+		if (jon.x - 1 >= 0 && grid[jon.y][jon.x - 1] != 'o') {
+			possibleOperators.add(new WesterosOperator('l', 1));
+		}
+		// add up
+		if (jon.y - 1 >= 0 && grid[jon.y - 1][jon.x] != 'o') {
+			possibleOperators.add(new WesterosOperator('u', 1));
+		}
+		// add down
+		if (jon.y + 1 < gridSize && grid[jon.y + 1][jon.x] != 'o') {
+			possibleOperators.add(new WesterosOperator('d', 1));
+		}
+
+	
 
 		Operator[] possibleOperatorsArr = new Operator[possibleOperators.size()];
 		for (int i = 0; i < possibleOperatorsArr.length; i++) {
@@ -164,7 +163,7 @@ public class SaveWesteros extends SearchProblem {
 		int gridSize = 4;
 		char[][] grid = new char[gridSize][gridSize];
 		
-		grid[0] = new char []{' ','w','o','w'};
+		grid[0] = new char []{' ','w','w','w'};
 		grid[1] = new char []{'w',' ',' ',' '};
 		grid[2] = new char []{'o','o','o','d'};
 		grid[3] = new char []{' ',' ','o','J'};
@@ -175,7 +174,7 @@ public class SaveWesteros extends SearchProblem {
 		obstacles[2] = new Position(2,0);
 		obstacles[3] = new Position(2,1);
 		obstacles[4] = new Position(2,2);
-		this.initState = new WesterosState(grid, false, 3, 3, 0, obstacles, new Position(2,3), new Position(3,3), false);
+		this.initState = new WesterosState(grid, false, 3, 3, 0, obstacles, new Position(3,2), new Position(3,3), false);
 		
 	}
 	public static void main(String[] args) {
