@@ -174,7 +174,7 @@ public class SaveWesteros extends SearchProblem {
 		obstacles[2] = new Position(2,0);
 		obstacles[3] = new Position(2,1);
 		obstacles[4] = new Position(2,2);
-		this.initState = new WesterosState(grid, false, 3, 3, 0, obstacles, new Position(3,2), new Position(3,3), false);
+		this.initState = new WesterosState(grid, false, 4, 3, 0, obstacles, new Position(3,2), new Position(3,3), false);
 		
 	}
 	public static void main(String[] args) {
