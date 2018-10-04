@@ -6,7 +6,7 @@ public class SaveWesteros extends SearchProblem {
 	public SaveWesteros() {
 		super();
 		//GenGrid();
-		HardcodedGrid();
+		HardcodedGrid1();
 	}
 
 	public void GenGrid() {
@@ -177,6 +177,26 @@ public class SaveWesteros extends SearchProblem {
 		this.initState = new WesterosState(grid, false, 4, 3, 0, obstacles, new Position(3,2), new Position(3,3), false);
 		
 	}
+	public void HardcodedGrid1() {
+		int gridSize = 4;
+		char[][] grid = new char[gridSize][gridSize];
+		
+		grid[0] = new char []{' ','w','o','w'};
+		grid[1] = new char []{'w',' ',' ',' '};
+		grid[2] = new char []{'o','o','o','d'};
+		grid[3] = new char []{' ',' ','o','J'};
+		
+		Position [] obstacles = new Position [5];
+		obstacles[0] = new Position(0,2);
+		obstacles[1] = new Position(3,2);
+		obstacles[2] = new Position(2,0);
+		obstacles[3] = new Position(2,1);
+		obstacles[4] = new Position(2,2);
+		
+		this.initState = new WesterosState(grid, false, 3, 3, 0, obstacles, new Position(3,2), new Position(3,3), false);
+		
+	}
+
 	public static void main(String[] args) {
 		// SaveWesteros sw = new SaveWesteros();
 		// char[][] grid = sw.initState.grid;

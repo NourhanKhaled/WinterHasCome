@@ -112,6 +112,7 @@ public class WesterosOperator extends Operator {
 
 		State newState = new WesterosState(newGrid, isFailureState, whiteWalkersNumber, parent.maxDragonGlass, currentDragonGlass,
 				parent.obstacles, parent.dragonStone, newJon, jonDead);
+		
 		return  newState;
 	}
 }
