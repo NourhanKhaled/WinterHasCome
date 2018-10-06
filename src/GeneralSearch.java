@@ -5,7 +5,7 @@ import java.util.Collections;
 public class GeneralSearch {
 	
 	public static int searchType = 0; //indicates uninformed or informed types
-	static int nodesExpanded = 1;
+	static int nodesExpanded = 0;
 	
 	public static SearchTreeNode Search(SearchProblem grid, String strategy, boolean visualize) {
 		

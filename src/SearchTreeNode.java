@@ -70,6 +70,8 @@ public class SearchTreeNode implements Comparable{
 			for( int j = 0; j < grid.length; j++) {
 				if(grid[i][j] == 'w') {
 					dist = Math.abs(jonPos.x - j) + Math.abs(jonPos.y - i);
+					if(this.operator.action == 'k')
+						dist = 1;
 					if (dist < minDist)
 						minDist = dist;
 				}
