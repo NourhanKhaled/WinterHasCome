@@ -7,7 +7,7 @@ public class GeneralSearch {
 	public static int searchType = 0; //indicates uninformed or informed types
 	static int nodesExpanded = 0;
 	
-	public static SearchTreeNode Search(SearchProblem grid, String strategy, boolean visualize) {
+	public static Object[] Search(SearchProblem grid, String strategy, boolean visualize) {
 		
 		if(strategy.equals("ID")){
 			return SearchID(grid, strategy, visualize);
@@ -39,19 +39,33 @@ public class GeneralSearch {
 			// dequeue
 			SearchTreeNode currentNode = nodes.remove(0);
 			nodesExpanded++ ;
-			if(currentNode.operator != null) {
-				if(currentNode.operator.action == 'c')
-					System.out.println("Coming from charging");
-				if(currentNode.operator.action == 'k')
-					System.out.println("IMMA KILL YA");
+//			if(currentNode.operator != null) {
+//				if(currentNode.operator.action == 'c')
+//					System.out.println("Coming from charging");
+//				if(currentNode.operator.action == 'k')
+//					System.out.println("IMMA KILL YA");
+//			}
+			
+//			if(visualize)
+//				currentNode.visualize();
+			
+			// return resulting object if passes the goal test
+			if (grid.goalTest(currentNode)){
+				String path = "";
+				int numNodes = nodesExpanded;
+				int totalCost = currentNode.pathCost;
+				path = currentNode.getPath();	
+				if(visualize)
+					currentNode.visualizePath();
+				
+				System.out.println("VISULAIZING " + path+" "+numNodes+" "+totalCost);
+				Object [] res = new Object[3];
+				res[0] = path;
+				res[1] = numNodes;
+				res[2] = totalCost;
+				return res;
+						
 			}
-			
-			if(visualize)
-				currentNode.visualize();
-			
-			// return current node if passes the goal test
-			if (grid.goalTest(currentNode))
-				return currentNode;
 			
 			// else expand current node i.e. apply all possible operators on node
 			ArrayList<SearchTreeNode> children;
@@ -87,17 +101,17 @@ public class GeneralSearch {
 		nodes.addAll(children);
 		Collections.sort(nodes);
 		//print nodes.pathcost
-		System.out.print("cost: ");
-		for(SearchTreeNode node: nodes) {
-			System.out.print(node.pathCost + " ");
-		}
+//		System.out.print("cost: ");
+//		for(SearchTreeNode node: nodes) {
+//			System.out.print(node.pathCost + " ");
+//		}
 		System.out.println();
 		return nodes;
 	}
 	
 	public static ArrayList<SearchTreeNode> DF(ArrayList<SearchTreeNode> nodes, ArrayList<SearchTreeNode> children){
 		children.addAll(nodes);
-		System.out.println(children);
+//		System.out.println(children);
 		return children;
 	}
 	
@@ -107,19 +121,19 @@ public class GeneralSearch {
 		for(int i = 0; i < children.size(); i++) {
 			
 			if(heuristic == 1)
-				children.get(i).h = children.get(i).h1();
+				children.get(i).h = SaveWesteros.h1(children.get(i));
 			else
-				children.get(i).h = children.get(i).h2();
+				children.get(i).h = SaveWesteros.h2(children.get(i));
 		}
 		
 		nodes.addAll(children);
 		Collections.sort(nodes);
-		System.out.print("h: ");
-		for(SearchTreeNode node: nodes) {
-			System.out.print(node.h + " ");
-		}
-		System.out.println();
-		System.out.println(nodes);
+//		System.out.print("h: ");
+//		for(SearchTreeNode node: nodes) {
+//			System.out.print(node.h + " ");
+//		}
+//		System.out.println();
+//		System.out.println(nodes);
 		return nodes;
 		
 	}
@@ -129,27 +143,27 @@ public class GeneralSearch {
 		for(int i = 0; i < children.size(); i++) {
 			
 			if(heuristic == 1)
-				children.get(i).h = children.get(i).h1();
+				children.get(i).h = SaveWesteros.h1(children.get(i));
 			else
-				children.get(i).h = children.get(i).h2();
+				children.get(i).h = SaveWesteros.h2(children.get(i));
 		}
 		
 		nodes.addAll(children);
-		System.out.println("before sorting: ");
-		for(SearchTreeNode node: nodes) {
-			System.out.print((node.pathCost + node.h) + " ");
-		}
+//		System.out.println("before sorting: ");
+//		for(SearchTreeNode node: nodes) {
+//			System.out.print((node.pathCost + node.h) + " ");
+//		}
 		System.out.println();
 		Collections.sort(nodes);
-		System.out.println("nach sorting: ");
-		for(SearchTreeNode node: nodes) {
-			System.out.print((node.pathCost + node.h) + " ");
-		}
+//		System.out.println("nach sorting: ");
+//		for(SearchTreeNode node: nodes) {
+//			System.out.print((node.pathCost + node.h) + " ");
+//		}
 		System.out.println();
 		return nodes;
 }
 	
-	public static SearchTreeNode SearchID(SearchProblem grid, String strategy, boolean visualize){
+	public static Object[] SearchID(SearchProblem grid, String strategy, boolean visualize){
 		
 		int maxDepth = 0;
 		while(true){
@@ -170,12 +184,39 @@ public class GeneralSearch {
 					if(currentNode.operator.action == 'c')
 						System.out.println("Coming from charging");
 				
-				if(visualize)
-					currentNode.visualize();
 				
-				// return current node if passes the goal test
-				if (grid.goalTest(currentNode))
-					return currentNode;
+				// return resulting object if passes the goal test
+				if (grid.goalTest(currentNode)){
+					String path = "";
+					int numNodes = nodesExpanded;
+					int totalCost = currentNode.pathCost;
+					path = currentNode.getPath();	
+					if(visualize)
+						currentNode.visualizePath();
+					
+					System.out.println("VISULAIZING " + path+" "+numNodes+" "+totalCost);
+					Object [] res = new Object[3];
+					res[0] = path;
+					res[1] = numNodes;
+					res[2] = totalCost;
+					return res;
+							
+				}
+				
+				if (grid.goalTest(currentNode)){
+					String path = "";
+					int numNodes = nodesExpanded;
+					int totalCost = currentNode.pathCost;
+					path = currentNode.getPath();					
+					
+					System.out.println("VISULAIZING " + path+" "+numNodes+" "+totalCost);
+					Object [] res = new Object[3];
+					res[0] = path;
+					res[1] = numNodes;
+					res[2] = totalCost;
+					return res;
+							
+				}
 				
 				// else expand current node i.e. apply all possible operators on node
 				ArrayList<SearchTreeNode> children;
@@ -207,7 +248,7 @@ public class GeneralSearch {
 		SaveWesteros sw = new SaveWesteros();
 		char[][] grid = sw.initState.grid;
 		
-		SearchTreeNode result = Search(sw, "A2", true);	
+		Object[] result = Search(sw, "A2", true);	
 
 	}
 }

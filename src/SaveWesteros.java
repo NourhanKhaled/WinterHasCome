@@ -196,6 +196,36 @@ public class SaveWesteros extends SearchProblem {
 		this.initState = new WesterosState(grid, false, 3, 3, 0, obstacles, new Position(3,2), new Position(3,3), false);
 		
 	}
+	
+	public static int h1(SearchTreeNode node) {
+		return ((WesterosState) node.state).whiteWalkersNumber;
+	}
+
+	public static int h2(SearchTreeNode node) {
+		if(((WesterosState) node.state).whiteWalkersNumber == 0)
+			return 0;
+		
+		char[][] grid = ((WesterosState) node.state).grid;
+		ArrayList<Position> whiteWalkersPos = new ArrayList<Position>();
+		int minDist = (int) 1e6;
+		int dist;
+		
+		Position jonPos = ((WesterosState) node.state).jon;
+		// checking white walkers position to calculate manhattan distance
+		for (int i = 0; i < grid.length; i++) {
+			for( int j = 0; j < grid.length; j++) {
+				if(grid[i][j] == 'w') {
+					dist = Math.abs(jonPos.x - j) + Math.abs(jonPos.y - i);
+					if(node.operator.action == 'k')
+						dist = 1;
+					if (dist < minDist)
+						minDist = dist;
+				}
+			}
+		}
+		
+		return minDist;
+	}
 
 	public static void main(String[] args) {
 		// SaveWesteros sw = new SaveWesteros();
@@ -206,4 +236,5 @@ public class SaveWesteros extends SearchProblem {
 		// }
 
 	}
+
 }

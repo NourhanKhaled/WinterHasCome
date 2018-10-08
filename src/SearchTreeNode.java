@@ -32,7 +32,7 @@ public class SearchTreeNode implements Comparable{
 
 		ArrayList<SearchTreeNode> nodes = new ArrayList<SearchTreeNode>();
 		
-		System.out.println("operators: " + operators.length);
+//		System.out.println("operators: " + operators.length);
 		for (Operator operator : operators) {
 			State newState = operator.transitionFunction(this.state);
 			SearchTreeNode newSearchTreeNode = new SearchTreeNode(newState, this, operator);
@@ -45,41 +45,10 @@ public class SearchTreeNode implements Comparable{
 		for (int i = 0; i < this.state.grid.length; i++) {
 			System.out.println(Arrays.toString(this.state.grid[i]));
 		}
-		System.out.println("Depth: "+ this.depth + ", # Nodes: " + GeneralSearch.nodesExpanded);
+		System.out.println("Depth: "+ this.depth);
 		System.out.println("======================");
 	}
 	
-	public int h1() {
-		return ((WesterosState) this.state).whiteWalkersNumber;
-	}
-	
-	//TODO: generic oder geht's so?
-	public int h2() {
-		
-		if(((WesterosState) this.state).whiteWalkersNumber == 0)
-			return 0;
-		
-		char[][] grid = ((WesterosState) this.state).grid;
-		ArrayList<Position> whiteWalkersPos = new ArrayList<Position>();
-		int minDist = (int) 1e6;
-		int dist;
-		
-		Position jonPos = ((WesterosState) this.state).jon;
-		// checking white walkers position to calculate manhattan distance
-		for (int i = 0; i < grid.length; i++) {
-			for( int j = 0; j < grid.length; j++) {
-				if(grid[i][j] == 'w') {
-					dist = Math.abs(jonPos.x - j) + Math.abs(jonPos.y - i);
-					if(this.operator.action == 'k')
-						dist = 1;
-					if (dist < minDist)
-						minDist = dist;
-				}
-			}
-		}
-		
-		return minDist;
-	}
 
 	public int compareTo(Object obj) {
 		
@@ -95,7 +64,22 @@ public class SearchTreeNode implements Comparable{
 		return 0;
 	}
 	
-
+	public String getPath(){
+		if(this.parent == null)
+			return "";
+		
+		return this.parent.getPath() + " " + this.operator.action;
+	}
+	
+	public void visualizePath(){
+		if(this.parent == null){
+			this.visualize();
+			return;
+		}
+		
+		this.parent.visualizePath();
+		this.visualize();
+	}
 	
 	public String toString(){
 		return "("+ this.id + ", " + this.operator.action + ")";
