@@ -58,7 +58,7 @@ public class GeneralSearch {
 				if(visualize)
 					currentNode.visualizePath();
 				
-				System.out.println("VISULAIZING " + path+" "+numNodes+" "+totalCost);
+				System.out.println("Path taken: "+ path+"\nNumber of Nodes Expanded: "+ numNodes+"\nTotal Cost: "+totalCost);
 				Object [] res = new Object[3];
 				res[0] = path;
 				res[1] = numNodes;
@@ -100,18 +100,11 @@ public class GeneralSearch {
 	public static ArrayList<SearchTreeNode> UC(ArrayList<SearchTreeNode> nodes, ArrayList<SearchTreeNode> children){
 		nodes.addAll(children);
 		Collections.sort(nodes);
-		//print nodes.pathcost
-//		System.out.print("cost: ");
-//		for(SearchTreeNode node: nodes) {
-//			System.out.print(node.pathCost + " ");
-//		}
-		System.out.println();
 		return nodes;
 	}
 	
 	public static ArrayList<SearchTreeNode> DF(ArrayList<SearchTreeNode> nodes, ArrayList<SearchTreeNode> children){
 		children.addAll(nodes);
-//		System.out.println(children);
 		return children;
 	}
 	
@@ -128,12 +121,6 @@ public class GeneralSearch {
 		
 		nodes.addAll(children);
 		Collections.sort(nodes);
-//		System.out.print("h: ");
-//		for(SearchTreeNode node: nodes) {
-//			System.out.print(node.h + " ");
-//		}
-//		System.out.println();
-//		System.out.println(nodes);
 		return nodes;
 		
 	}
@@ -149,17 +136,7 @@ public class GeneralSearch {
 		}
 		
 		nodes.addAll(children);
-//		System.out.println("before sorting: ");
-//		for(SearchTreeNode node: nodes) {
-//			System.out.print((node.pathCost + node.h) + " ");
-//		}
-		System.out.println();
 		Collections.sort(nodes);
-//		System.out.println("nach sorting: ");
-//		for(SearchTreeNode node: nodes) {
-//			System.out.print((node.pathCost + node.h) + " ");
-//		}
-		System.out.println();
 		return nodes;
 }
 	
@@ -179,11 +156,7 @@ public class GeneralSearch {
 					break;
 				
 				// dequeue
-				SearchTreeNode currentNode = nodes.remove(0);
-				if(currentNode.operator != null)
-					if(currentNode.operator.action == 'c')
-						System.out.println("Coming from charging");
-				
+				SearchTreeNode currentNode = nodes.remove(0);			
 				
 				// return resulting object if passes the goal test
 				if (grid.goalTest(currentNode)){
@@ -194,7 +167,7 @@ public class GeneralSearch {
 					if(visualize)
 						currentNode.visualizePath();
 					
-					System.out.println("VISULAIZING " + path+" "+numNodes+" "+totalCost);
+					System.out.println("Path taken: "+ path+"\nNumber of Nodes Expanded: "+ numNodes+"\nTotal Cost: "+totalCost);
 					Object [] res = new Object[3];
 					res[0] = path;
 					res[1] = numNodes;
@@ -248,7 +221,7 @@ public class GeneralSearch {
 		SaveWesteros sw = new SaveWesteros();
 		char[][] grid = sw.initState.grid;
 		
-		Object[] result = Search(sw, "A2", true);	
+		Object[] result = Search(sw, "GR2", true);	
 
 	}
 }
