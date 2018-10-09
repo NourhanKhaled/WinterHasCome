@@ -148,7 +148,6 @@ public class GeneralSearch {
 			SearchTreeNode initialTreeNode = new SearchTreeNode(grid.initState);		
 			ArrayList<SearchTreeNode> nodes = new ArrayList<SearchTreeNode>();
 			nodes.add(initialTreeNode);
-			nodesExpanded = 0;
 			
 			while (true) {
 				
