@@ -221,7 +221,7 @@ public class GeneralSearch {
 		SaveWesteros sw = new SaveWesteros();
 		char[][] grid = sw.initState.grid;
 		
-		Object[] result = Search(sw, "GR2", true);	
+		Object[] result = Search(sw, "UC", true);	
 
 	}
 }

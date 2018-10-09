@@ -126,28 +126,28 @@ public class SaveWesteros extends SearchProblem {
 			if (jon.y - 1 >= 0 && grid[jon.y - 1][jon.x] == 'w') {
 				adjacentWhiteWalkers = true;
 			}
-			
+			int killCost = grid.length * grid.length;
 			if (adjacentWhiteWalkers)
-				possibleOperators.add(new WesterosOperator('k', 3)); // TODO: rethink kill cost
+				possibleOperators.add(new WesterosOperator('k', killCost)); // TODO: rethink kill cost
 		
 		}
-		
+		int movementCost = 3;
 		// boundary and obstacle checks
 		// add right
 		if (jon.x + 1 < gridSize && grid[jon.y][jon.x + 1] != 'o') {
-			possibleOperators.add(new WesterosOperator('r', 1));
+			possibleOperators.add(new WesterosOperator('r', movementCost));
 		}
 		// add left
 		if (jon.x - 1 >= 0 && grid[jon.y][jon.x - 1] != 'o') {
-			possibleOperators.add(new WesterosOperator('l', 1));
+			possibleOperators.add(new WesterosOperator('l', movementCost));
 		}
 		// add up
 		if (jon.y - 1 >= 0 && grid[jon.y - 1][jon.x] != 'o') {
-			possibleOperators.add(new WesterosOperator('u', 1));
+			possibleOperators.add(new WesterosOperator('u', movementCost));
 		}
 		// add down
 		if (jon.y + 1 < gridSize && grid[jon.y + 1][jon.x] != 'o') {
-			possibleOperators.add(new WesterosOperator('d', 1));
+			possibleOperators.add(new WesterosOperator('d', movementCost));
 		}
 
 	
@@ -225,6 +225,11 @@ public class SaveWesteros extends SearchProblem {
 		}
 		
 		return minDist;
+	}
+	
+	@Override
+	public int pathCost(SearchTreeNode currentNode) {
+		return currentNode.pathCost;
 	}
 
 	public static void main(String[] args) {
