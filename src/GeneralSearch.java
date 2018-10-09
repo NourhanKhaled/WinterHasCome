@@ -148,6 +148,7 @@ public class GeneralSearch {
 			SearchTreeNode initialTreeNode = new SearchTreeNode(grid.initState);		
 			ArrayList<SearchTreeNode> nodes = new ArrayList<SearchTreeNode>();
 			nodes.add(initialTreeNode);
+			nodesExpanded = 0;
 			
 			while (true) {
 				
@@ -156,7 +157,8 @@ public class GeneralSearch {
 					break;
 				
 				// dequeue
-				SearchTreeNode currentNode = nodes.remove(0);			
+				SearchTreeNode currentNode = nodes.remove(0);	
+				nodesExpanded++ ;
 				
 				// return resulting object if passes the goal test
 				if (grid.goalTest(currentNode)){
@@ -221,7 +223,7 @@ public class GeneralSearch {
 		SaveWesteros sw = new SaveWesteros();
 		char[][] grid = sw.initState.grid;
 		
-		Object[] result = Search(sw, "UC", true);	
+		Object[] result = Search(sw, "ID", true);	
 
 	}
 }
