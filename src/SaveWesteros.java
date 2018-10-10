@@ -5,8 +5,8 @@ public class SaveWesteros extends SearchProblem {
 
 	public SaveWesteros() {
 		super();
-		//GenGrid();
-		HardcodedGrid1();
+		GenGrid();
+		//HardcodedGrid1();
 	}
 
 	public void GenGrid() {
@@ -51,7 +51,7 @@ public class SaveWesteros extends SearchProblem {
 		}
 
 		// whitewalkers initialization
-		whiteWalkersNumber = (int) (Math.random() * ((Math.pow(gridSize, 2) / 2) - 2));
+		whiteWalkersNumber = (int) (Math.random() * ((Math.pow(gridSize, 2)) - 2));
 		// whiteWalkersLoc = new Position[whiteWalkersNumber];
 		for (int i = 0; i < whiteWalkersNumber; i++) {
 			while (true) {
@@ -83,6 +83,10 @@ public class SaveWesteros extends SearchProblem {
 				// whiteWalkersLoc,
 				obstacles, dragonStone, jon, jonDead);
 		
+		for(int i = 0; i < grid.length; i++)
+			System.out.println(Arrays.toString(grid[i]));
+		
+		System.out.println();
 	}
 
 	public boolean goalTest(SearchTreeNode currentNode) {
@@ -229,6 +233,10 @@ public class SaveWesteros extends SearchProblem {
 	
 	@Override
 	public int pathCost(SearchTreeNode currentNode) {
+		/*if(currentNode.parent == null)
+			return currentNode.pathCost;
+			
+		return currentNode.pathCost + this.pathCost(currentNode.parent);*/
 		return currentNode.pathCost;
 	}
 

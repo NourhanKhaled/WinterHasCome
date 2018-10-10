@@ -33,9 +33,12 @@ public class GeneralSearch {
 		while (true) {
 			
 			// if no more nodes to expand -> failure
-			if (nodes.isEmpty())
-				return null;
-			
+			if (nodes.isEmpty()) {
+				System.out.println("Jon is stuck.");
+				return null;				
+			}
+				
+				
 			// dequeue
 			SearchTreeNode currentNode = nodes.remove(0);
 			nodesExpanded++ ;
@@ -152,8 +155,9 @@ public class GeneralSearch {
 			while (true) {
 				
 				// if no more nodes to expand -> failure
-				if (nodes.isEmpty())
-					break;
+				if (nodes.isEmpty()) {
+					break;				
+				}
 				
 				// dequeue
 				SearchTreeNode currentNode = nodes.remove(0);	
@@ -177,20 +181,6 @@ public class GeneralSearch {
 							
 				}
 				
-				if (grid.goalTest(currentNode)){
-					String path = "";
-					int numNodes = nodesExpanded;
-					int totalCost = currentNode.pathCost;
-					path = currentNode.getPath();					
-					
-					System.out.println("VISULAIZING " + path+" "+numNodes+" "+totalCost);
-					Object [] res = new Object[3];
-					res[0] = path;
-					res[1] = numNodes;
-					res[2] = totalCost;
-					return res;
-							
-				}
 				
 				// else expand current node i.e. apply all possible operators on node
 				ArrayList<SearchTreeNode> children;
@@ -222,7 +212,7 @@ public class GeneralSearch {
 		SaveWesteros sw = new SaveWesteros();
 		char[][] grid = sw.initState.grid;
 		
-		Object[] result = Search(sw, "ID", true);	
+		Object[] result = Search(sw, "A1", true);	
 
 	}
 }
