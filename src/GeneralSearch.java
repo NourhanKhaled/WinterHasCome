@@ -74,6 +74,12 @@ public class GeneralSearch {
 			ArrayList<SearchTreeNode> children;
 			if(! currentNode.state.isFailureState) {
 				children = currentNode.expand(grid.getPossibleOperators(currentNode.state));
+				
+				//assign path costs of expanded nodes
+				for(int i = 0; i < children.size(); i++){
+					children.get(i).pathCost = ((SaveWesteros)grid).pathCost(children.get(i));
+				}
+				
 				nodes = qing(nodes, children, strategy);
 			}
 			
@@ -212,7 +218,7 @@ public class GeneralSearch {
 		SaveWesteros sw = new SaveWesteros();
 		char[][] grid = sw.initState.grid;
 		
-		Object[] result = Search(sw, "A1", true);	
+		Object[] result = Search(sw, "A2", true);	
 
 	}
 }

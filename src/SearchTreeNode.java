@@ -16,7 +16,7 @@ public class SearchTreeNode implements Comparable{
 		this.parent = parent;
 		this.operator = operator;
 		this.depth = parent.depth + 1;
-		this.pathCost = parent.pathCost + operator.cost;
+		this.pathCost = 0;
 		this.id = id_counter++;
 		this.h = 0;
 

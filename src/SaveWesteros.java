@@ -5,8 +5,8 @@ public class SaveWesteros extends SearchProblem {
 
 	public SaveWesteros() {
 		super();
-		GenGrid();
-		//HardcodedGrid1();
+//		GenGrid();
+		HardcodedGrid1();
 	}
 
 	public void GenGrid() {
@@ -233,11 +233,11 @@ public class SaveWesteros extends SearchProblem {
 	
 	@Override
 	public int pathCost(SearchTreeNode currentNode) {
-		/*if(currentNode.parent == null)
-			return currentNode.pathCost;
+		if(currentNode.parent == null)
+			return 0;
 			
-		return currentNode.pathCost + this.pathCost(currentNode.parent);*/
-		return currentNode.pathCost;
+		return currentNode.operator.cost + this.pathCost(currentNode.parent);
+//		return currentNode.pathCost;
 	}
 
 	public static void main(String[] args) {
