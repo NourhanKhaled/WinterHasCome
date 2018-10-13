@@ -38,18 +38,6 @@ public class SaveWesteros extends SearchProblem {
 		jon = new Position(gridSize - 1, gridSize - 1);
 		grid[jon.y][jon.x] = 'J';
 
-		// dragonstone and dragonglass initialization
-		maxDragonGlass = (int) (Math.random() * 10 + 11); // has maximum of between 10 and 20 pieces of dragonglass
-		while (true) {
-			int x = (int) (Math.random() * gridSize);
-			int y = (int) (Math.random() * gridSize);
-			if (grid[y][x] == ' ') {
-				dragonStone = new Position(x, y);
-				grid[y][x] = 'd';
-				break;
-			}
-		}
-
 		// whitewalkers initialization
 		whiteWalkersNumber = (int) (Math.random() * ((Math.pow(gridSize, 2)) - 2));
 		// whiteWalkersLoc = new Position[whiteWalkersNumber];
@@ -61,6 +49,18 @@ public class SaveWesteros extends SearchProblem {
 					grid[y][x] = 'w';
 					break;
 				}
+			}
+		}
+		
+		// dragonstone and dragonglass initialization
+		maxDragonGlass = whiteWalkersNumber;
+		while (true) {
+			int x = (int) (Math.random() * gridSize);
+			int y = (int) (Math.random() * gridSize);
+			if (grid[y][x] == ' ') {
+				dragonStone = new Position(x, y);
+				grid[y][x] = 'd';
+				break;
 			}
 		}
 
