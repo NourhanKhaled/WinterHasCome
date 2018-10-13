@@ -53,7 +53,7 @@ public class SaveWesteros extends SearchProblem {
 		}
 		
 		// dragonstone and dragonglass initialization
-		maxDragonGlass = whiteWalkersNumber;
+		maxDragonGlass = (int) (Math.random() * whiteWalkersNumber + 1);
 		while (true) {
 			int x = (int) (Math.random() * gridSize);
 			int y = (int) (Math.random() * gridSize);
