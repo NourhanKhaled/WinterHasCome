@@ -5,7 +5,7 @@ public class SaveWesteros extends SearchProblem {
 
 	public SaveWesteros() {
 		super();
-//		GenGrid();
+		//GenGrid();
 		HardcodedGrid1();
 	}
 
@@ -167,26 +167,22 @@ public class SaveWesteros extends SearchProblem {
 		int gridSize = 4;
 		char[][] grid = new char[gridSize][gridSize];
 		
-		grid[0] = new char []{' ','w','w','w'};
-		grid[1] = new char []{'w',' ',' ',' '};
-		grid[2] = new char []{'o','o','o','d'};
-		grid[3] = new char []{' ',' ','o','J'};
+		grid[0] = new char []{' ',' ',' ','o'};
+		grid[1] = new char []{' ','w',' ',' '};
+		grid[2] = new char []{'w','d',' ',' '};
+		grid[3] = new char []{' ','w',' ','J'};
 		
-		Position [] obstacles = new Position [5];
-		obstacles[0] = new Position(0,2);
-		obstacles[1] = new Position(3,2);
-		obstacles[2] = new Position(2,0);
-		obstacles[3] = new Position(2,1);
-		obstacles[4] = new Position(2,2);
-		this.initState = new WesterosState(grid, false, 4, 3, 0, obstacles, new Position(3,2), new Position(3,3), false);
+		Position [] obstacles = new Position [1];
+		obstacles[0] = new Position(2,0);
+		this.initState = new WesterosState(grid, false, 3, 3, 0, obstacles, new Position(1,2), new Position(3,3), false);
 		
 	}
 	public void HardcodedGrid1() {
 		int gridSize = 4;
 		char[][] grid = new char[gridSize][gridSize];
 		
-		grid[0] = new char []{' ','w','o','w'};
-		grid[1] = new char []{'w',' ',' ',' '};
+		grid[0] = new char []{' ','w','o',' '};
+		grid[1] = new char []{'w',' ',' ','w'};
 		grid[2] = new char []{'o','o','o','d'};
 		grid[3] = new char []{' ',' ','o','J'};
 		

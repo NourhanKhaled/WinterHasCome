@@ -192,6 +192,12 @@ public class GeneralSearch {
 				ArrayList<SearchTreeNode> children;
 				if(! currentNode.state.isFailureState) {
 					children = currentNode.expand(grid.getPossibleOperators(currentNode.state));
+					
+					//assign path costs of expanded nodes
+					for(int i = 0; i < children.size(); i++){
+						children.get(i).pathCost = ((SaveWesteros)grid).pathCost(children.get(i));
+					}
+					
 					nodes = DL(nodes, children, maxDepth);
 				}
 				
