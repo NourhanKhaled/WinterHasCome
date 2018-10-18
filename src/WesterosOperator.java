@@ -58,7 +58,7 @@ public class WesterosOperator extends Operator {
 			break;
 		}
 		case 'k': {
-			// TODO: keep ds when jon leaves
+			
 			// locating stabbed walkers and obliterating them
 			boolean usedDragonGlass = false;
 			if (jon.x + 1 < size && grid[jon.y][jon.x + 1] == 'w') {

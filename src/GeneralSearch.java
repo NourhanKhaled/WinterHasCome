@@ -42,15 +42,7 @@ public class GeneralSearch {
 			// dequeue
 			SearchTreeNode currentNode = nodes.remove(0);
 			nodesExpanded++ ;
-//			if(currentNode.operator != null) {
-//				if(currentNode.operator.action == 'c')
-//					System.out.println("Coming from charging");
-//				if(currentNode.operator.action == 'k')
-//					System.out.println("IMMA KILL YA");
-//			}
-			
-//			if(visualize)
-//				currentNode.visualize();
+
 			
 			// return resulting object if passes the goal test
 			if (grid.goalTest(currentNode)){
@@ -80,6 +72,7 @@ public class GeneralSearch {
 					children.get(i).pathCost = ((SaveWesteros)grid).pathCost(children.get(i));
 				}
 				
+				// call q-ing function
 				nodes = qing(nodes, children, strategy);
 			}
 			

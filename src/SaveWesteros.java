@@ -5,42 +5,40 @@ public class SaveWesteros extends SearchProblem {
 
 	public SaveWesteros() {
 		super();
-		//GenGrid();
-		HardcodedGrid1();
+		GenGrid();
+//		HardcodedGrid1(); //used for evaluation and comparison
 	}
 
 	public void GenGrid() {
 
-		// grid initialization, TODO:Fix
 //		int gridSize = (int) (Math.random() * 10 + 4);
 		int gridSize = 4;
 		char[][] grid = new char[gridSize][gridSize];
 
+		// Empty grid cells
 		for (int i = 0; i < gridSize; i++) {
 			for (int j = 0; j < gridSize; j++) {
 				grid[i][j] = ' ';
 			}
 		}
 
-		// TODO: will create variables and pass them all to the constructor of westeros
-		// state at the end of the method
 
 		int whiteWalkersNumber;
 		boolean isFailureState = false; // initially false
 		int maxDragonGlass;
 		int currentDragonGlass = 0; // initially 0, Jon needs to go charge
-		// Position[] whiteWalkersLoc;
 		Position[] obstacles;
 		Position dragonStone;
 		Position jon;
 		boolean jonDead = false; // initially false
-
+		
+		// placing Jon at bottom right
 		jon = new Position(gridSize - 1, gridSize - 1);
 		grid[jon.y][jon.x] = 'J';
 
 		// whitewalkers initialization
 		whiteWalkersNumber = (int) (Math.random() * ((Math.pow(gridSize, 2)) - 2));
-		// whiteWalkersLoc = new Position[whiteWalkersNumber];
+
 		for (int i = 0; i < whiteWalkersNumber; i++) {
 			while (true) {
 				int x = (int) (Math.random() * gridSize);
@@ -79,9 +77,10 @@ public class SaveWesteros extends SearchProblem {
 				}
 			}
 		}
+		
+		// initial state
 		this.initState = new WesterosState(grid, isFailureState, whiteWalkersNumber, maxDragonGlass, currentDragonGlass,
-				// whiteWalkersLoc,
-				obstacles, dragonStone, jon, jonDead);
+								obstacles, dragonStone, jon, jonDead);
 		
 		for(int i = 0; i < grid.length; i++)
 			System.out.println(Arrays.toString(grid[i]));
@@ -211,6 +210,7 @@ public class SaveWesteros extends SearchProblem {
 		int dist;
 		
 		Position jonPos = ((WesterosState) node.state).jon;
+		
 		// checking white walkers position to calculate manhattan distance
 		for (int i = 0; i < grid.length; i++) {
 			for( int j = 0; j < grid.length; j++) {
@@ -227,22 +227,15 @@ public class SaveWesteros extends SearchProblem {
 		return minDist;
 	}
 	
-	@Override
 	public int pathCost(SearchTreeNode currentNode) {
 		if(currentNode.parent == null)
 			return 0;
 			
 		return currentNode.operator.cost + this.pathCost(currentNode.parent);
-//		return currentNode.pathCost;
 	}
 
 	public static void main(String[] args) {
-		// SaveWesteros sw = new SaveWesteros();
-		// char[][] grid = sw.initState.grid;
-		//
-		// for (int i = 0; i < grid.length; i++) {
-		// System.out.println(Arrays.toString(grid[i]));
-		// }
+		
 
 	}
 

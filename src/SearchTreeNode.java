@@ -32,7 +32,6 @@ public class SearchTreeNode implements Comparable{
 
 		ArrayList<SearchTreeNode> nodes = new ArrayList<SearchTreeNode>();
 		
-//		System.out.println("operators: " + operators.length);
 		for (Operator operator : operators) {
 			State newState = operator.transitionFunction(this.state);
 			SearchTreeNode newSearchTreeNode = new SearchTreeNode(newState, this, operator);
