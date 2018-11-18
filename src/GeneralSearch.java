@@ -1,3 +1,4 @@
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -213,7 +214,7 @@ public class GeneralSearch {
 			
 	}
 		
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException {
 		SaveWesteros sw = new SaveWesteros();
 		char[][] grid = sw.initState.grid;
 		

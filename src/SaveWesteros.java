@@ -1,15 +1,18 @@
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 
 public class SaveWesteros extends SearchProblem {
 
-	public SaveWesteros() {
+	public SaveWesteros() throws IOException {
 		super();
 		GenGrid();
 //		HardcodedGrid1(); //used for evaluation and comparison
 	}
 
-	public void GenGrid() {
+	public void GenGrid() throws IOException {
 
 //		int gridSize = (int) (Math.random() * 10 + 4);
 		int gridSize = 4;
@@ -86,6 +89,8 @@ public class SaveWesteros extends SearchProblem {
 			System.out.println(Arrays.toString(grid[i]));
 		
 		System.out.println();
+		
+		WriteInKB(grid, dragonStone,maxDragonGlass);
 	}
 
 	public boolean goalTest(SearchTreeNode currentNode) {
@@ -233,10 +238,41 @@ public class SaveWesteros extends SearchProblem {
 			
 		return currentNode.operator.cost + this.pathCost(currentNode.parent);
 	}
-
-	public static void main(String[] args) {
+	
+	public static void WriteInKB(char[][] grid,  Position dragonStone, int maxDragonGlass) throws IOException
+	{
 		
-
+		String KB = "";
+		KB += "max_dimensions(" + grid.length +").\n";
+		KB += "jon("+(grid.length - 1) +","+(grid.length - 1)+",0, s0).\n";
+		KB += "max_dragon_glass(" + maxDragonGlass +").\n";
+		KB += "dragon_stone(" + dragonStone.x + "," + dragonStone.y +").\n";
+		
+		for(int i = 0; i<grid.length; i++)
+		{
+			for (int j = 0; j< grid.length; j++)
+			{
+				if(grid[i][j] == 'w')
+				{
+					KB += "whitewalker(" + j + "," + i +", s0).\n";
+				}
+				if(grid[i][j] == 'o')
+				{
+					KB += "obstacle(" + j + "," + i +").\n";
+				}
+			}
+		}
+		System.out.println(KB);
+		BufferedWriter writer = new BufferedWriter(new FileWriter("C:/Users/Nourhan Khaled/Semester 9 Material/AI/KB.txt"));
+	    writer.write(KB);
+	    writer.close();
+		
+	}
+	
+	public static void main(String[] args) throws IOException {
+		
+		SaveWesteros sw = new SaveWesteros();
+		sw.GenGrid();
 	}
 
 }
